@@ -7,8 +7,9 @@ import React, {
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { State } from "../type";
-import { createToDoActionCreator, editToDoActionCreator, toggleToDoActionCreator, deleteToDoActionCreator, selectToDoActionCreator } from '../redux-og';
+// import { createToDoActionCreator, editToDoActionCreator, toggleToDoActionCreator, deleteToDoActionCreator, selectToDoActionCreator } from '../redux-og';
 import "./App.css";
+import { createToDoActionCreator, editToDoActionCreator, toggleToDoActionCreator, deleteToDoActionCreator, selectToDoActionCreator, fetchTodos } from '../redux-toolkit';
 
 
 const App = function () {
@@ -22,6 +23,11 @@ const App = function () {
   const [editTodoInput, setEditTodoInput] = useState<string>("");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const editInput = useRef<HTMLInputElement>(null);
+
+
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
 
   const selectedTodo =
     (selectedTodoId && todos.find(todo => todo.id === selectedTodoId)) || null;
